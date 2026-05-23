@@ -1,2 +1,2 @@
 pyTelegramBotAPI
-yt-dlp
+pip install -U yt-dlp
