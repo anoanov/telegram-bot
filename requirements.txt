@@ -1,2 +1,2 @@
 pyTelegramBotAPI
-yt-dlp --cookies cookies.txt http
+yt-dlp
