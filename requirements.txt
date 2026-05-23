@@ -1,2 +1,2 @@
 pyTelegramBotAPI
-yt-dlp>=2024.08.01
+yt-dlp>=2024.09.01
