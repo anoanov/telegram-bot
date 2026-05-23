@@ -1,2 +1,2 @@
-peTelegramBotAPI  
-pip install -U yt-dlp
+pyTelegramBotAPI
+yt-dlp>=2025.09.01
