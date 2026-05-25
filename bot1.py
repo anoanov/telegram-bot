@@ -2,10 +2,10 @@
 import os
 import yt_dlp
 from aiogram import Bot, Dispatcher, types
-from aiogram.utils.executor import start_polling
+from aiogram.utils.executor import start_polling 
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-
+TOKEN = ""
+7633395197:AAHeSWP4wCkJHlVfvr5_Z3ec_2zV0aIOcr8
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
 
