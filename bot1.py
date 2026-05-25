@@ -1,48 +1,41 @@
 import os
 import telebot
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from yt_dlp import YoutubeDL
 
-TOKEN = "7633395197:AAFwAsT0Xn9ut76JA99LnmD_IGbrJwKvcrY"
+TOKEN = "7633395197:AAHeSWP4wCkJHlVfvr5_Z3ec_2zV0aIOcr8"
 bot = telebot.TeleBot(TOKEN)
 
-TEXTS = {
-    "tg": {
-        "start": "Салом! 🌸 Забонро интихоб кунед:",
-        "ask_link": "Линки YouTube, Instagram, TikTok фирист 🌸",
-        "downloading": "⏳ Видео бор мешавад, 1 дақиқа интизор шав",
-        "done": "✅ Тайёр!",
-        "error": "❌ Хатогӣ: {}",
-        "wrong_link": "❌ Фақат линки YouTube, Instagram, TikTok фирист",
-        "big_file": "❌ Видео калон аст. Макс 50MB мешавад"
-    },
-    "ru": {
-        "start": "Привет! 🌸 Выберите язык:",
-        "ask_link": "Отправьте ссылку YouTube, Instagram, TikTok 🌸",
-        "downloading": "⏳ Видео загружается, подождите 1 минуту",
-        "done": "✅ Готово!",
-        "error": "❌ Ошибка: {}",
-        "wrong_link": "❌ Отправляйте только ссылки YouTube, Instagram, TikTok",
-        "big_file": "❌ Видео слишком большое. Макс 50MB"
-    },
-    "en": {
-        "start": "Hello! 🌸 Choose a language:",
-        "ask_link": "Send me a YouTube, Instagram, TikTok link 🌸",
-        "downloading": "⏳ Video is downloading, please wait 1 minute",
-        "done": "✅ Done!",
-        "error": "❌ Error: {}",
-        "wrong_link": "❌ Please send only YouTube, Instagram, TikTok links",
-        "big_file": "❌ Video is too large. Max 50MB"
-    }
-}
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.send_message(message.chat.id, "Salom! Linki YouTube firist")
 
-user_lang = {}
+@bot.message_handler(func=lambda m: True)
+def download(message):
+    url = message.text.strip()
+    
+    if "youtube.com" not in url and "youtu.be" not in url:
+        bot.send_message(message.chat.id, "Faqat linki YouTube firist")
+        return
+    
+    bot.send_message(message.chat.id, "Video bor meshavad...")
+    
+    try:
+        ydl_opts = {
+            'outtmpl': 'video.mp4',
+            'format': 'best[height<=720]',
+            'quiet': True
+        }
+        
+        with YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+        
+        with open('video.mp4', 'rb') as video:
+            bot.send_video(message.chat.id, video)
+        
+        os.remove('video.mp4')
+        
+    except:
+        bot.send_message(message.chat.id, "Khata: Video girifta nashud")
 
-def get_keyboard():
-    markup = InlineKeyboardMarkup()
-    markup.row(
-        InlineKeyboardButton("🇹🇯 Тоҷикӣ", callback_data="lang_tg"),
-        InlineKeyboardButton("🇷🇺 Русский", callback_data="lang_ru"),
-        InlineKeyboardButton("🇬🇧 English", callback_data="lang_en")
-    )
-    return markup
+if __name__ == "__main_":
+    bot.polling(none_stop=True)
