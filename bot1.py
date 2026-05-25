@@ -46,5 +46,3 @@ def get_keyboard():
         InlineKeyboardButton("🇬🇧 English", callback_data="lang_en")
     )
     return markup
-
-@
