@@ -4,8 +4,7 @@ import yt_dlp
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils.executor import start_polling 
 
-TOKEN = ""
-7633395197:AAHeSWP4wCkJHlVfvr5_Z3ec_2zV0aIOcr8
+TOKEN = "8750367879:AAHdftjPdbfohkIaPDG3R9NYurZ4pKJV0P4"
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
 
